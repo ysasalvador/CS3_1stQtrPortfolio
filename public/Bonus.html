@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Guess My Word</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+body {
+font-family: 'Press Start 2P', cursive;
+background: #fff0f5; /* soft pink */
+color: #333;
+text-align: center;
+padding: 40px;
+}
+
+h1 {
+color: #d63384;
+text-shadow: 2px 2px #ffb6c1;
+}
+
+#wordDisplay {
+font-size: 28px;
+letter-spacing: 8px;
+margin: 20px 0;
+}
+
+#guessInput {
+font-size: 18px;
+padding: 8px;
+width: 50px;
+text-align: center;
+border: 2px solid #d63384;
+border-radius: 5px;
+}
+
+button {
+font-family: 'Press Start 2P', cursive;
+font-size: 14px;
+background: #ffb6c1;
+border: none;
+padding: 10px 20px;
+margin: 10px;
+cursor: pointer;
+border-radius: 6px;
+transition: 0.2s;
+}
+
+button:hover {
+background: #d63384;
+color: white;
+}
+
+#message {
+font-size: 16px;
+margin: 15px 0;
+}
+
+#message.correct {
+color: green;
+}
+
+#message.incorrect {
+color: red;
+}
+
+#guessedLetters {
+margin: 20px 0;
+font-size: 14px;
+color: #555;
+}
+
+#attempts {
+margin-top: 15px;
+font-size: 16px;
+color: #444;
+}
+</style>
+</head>
+<body>
+<h1>Guess My Word</h1>
+<p id="wordDisplay"></p>
+<input type="text" id="guessInput" maxlength="1">
+<button onclick="makeGuess()">Guess</button>
+<button onclick="playAgain()" style="display:none;" id="playAgainBtn">Play Again</button>
+<p id="message"></p>
+<p id="guessedLetters">Guessed Letters: </p>
+<p id="attempts"></p>
+
+<script>
+let secretWord = "Yearner Ysa".toLowerCase().split("");
+let guessedWord = secretWord.map(ch => ch === " " ? " " : "_");
+let guessedLetters = [];
+let maxAttempts = 12;
+let remainingAttempts = maxAttempts;
+
+document.getElementById("wordDisplay").textContent = guessedWord.join(" ");
+document.getElementById("attempts").textContent = `Remaining Attempts: ${remainingAttempts}`;
+
+function makeGuess() {
+let guess = document.getElementById("guessInput").value.toLowerCase();
+document.getElementById("guessInput").value = "";
+let message = document.getElementById("message");
+
+if (!guess || guess.length !== 1 || !/[a-z]/.test(guess)) {
+message.textContent = "⚠️ Enter a valid letter.";
+message.className = "incorrect";
+return;
+}
+
+if (guessedLetters.includes(guess)) {
+message.textContent = `⚠️ You already guessed "${guess}".`;
+message.className = "incorrect";
+return;
+}
+
+guessedLetters.push(guess);
+document.getElementById("guessedLetters").textContent = "Guessed Letters: " + guessedLetters.join(", ");
+
+let correct = false;
+for (let i = 0; i < secretWord.length; i++) {
+if (secretWord[i] === guess) {
+guessedWord[i] = guess;
+correct = true;
+}
+}
+
+document.getElementById("wordDisplay").textContent = guessedWord.join(" ");
+
+if (correct) {
+message.textContent = "✅ Correct!";
+message.className = "correct";
+} else {
+message.textContent = "❌ Try again.";
+message.className = "incorrect";
+remainingAttempts--;
+}
+
+document.getElementById("attempts").textContent = `Remaining Attempts: ${remainingAttempts}`;
+
+if (!guessedWord.includes("_")) {
+message.textContent = "🎉 You guessed 'Yearner Ysa'!";
+document.getElementById("playAgainBtn").style.display = "inline-block";
+document.getElementById("guessInput").disabled = true;
+} else if (remainingAttempts <= 0) {
+message.textContent = "💔 Game Over! The word was 'Yearner Ysa'.";
+document.getElementById("playAgainBtn").style.display = "inline-block";
+document.getElementById("guessInput").disabled = true;
+}
+}
+
+function playAgain() {
+guessedWord = secretWord.map(ch => ch === " " ? " " : "_");
+guessedLetters = [];
+remainingAttempts = maxAttempts;
+document.getElementById("wordDisplay").textContent = guessedWord.join(" ");
+document.getElementById("attempts").textContent = `Remaining Attempts: ${remainingAttempts}`;
+document.getElementById("guessedLetters").textContent = "Guessed Letters: ";
+document.getElementById("message").textContent = "";
+document.getElementById("message").className = "";
+document.getElementById("guessInput").disabled = false;
+document.getElementById("playAgainBtn").style.display = "none";
+}
+</script>
+</body>
+</html>
