@@ -1,0 +1,27 @@
+### **List and describe at least 5 topics that we discussed in class that you know very well. Each description should be at least 1 paragraph with two to five sentences.**
+
+1. **Declaring Variables** - I know how to properly create and declare variables in JavaScript. I can assign values to variables and choose the correct keyword such as let, const, or var depending on the situation. This knowledge allows me to manage and organize data effectively in my code.
+2. **JavaScript Operations** - I know how different operations in JavaScript work, such as addition, subtraction, multiplication, division, and modulus. I can compute outputs from equations using these operations even without running them in a programming software. This skill helps me predict results and debug errors faster.
+3. **While Loops** - I know how to write while loops that make logical sense and perform the task I want. I also know what to change or edit if I need my code to produce a different output. Understanding while loops helps me repeat processes efficiently in my programs.
+4. **Break Statement** - I know when and how to use a break statement inside a loop. It allows me to stop a loop immediately when a certain condition is met. This gives me more control over the flow of my program and prevents unnecessary iterations.
+5. **Continue Statement** - I know that the continue statement is used when I want to skip the current iteration of a loop and move on to the next one. I also know how to properly write it in my code to avoid logic errors. Using continue statements makes my loops more flexible and efficient.
+
+### **List at least 5 topics that you know and can describe but needs further practice/discussion and why.  The why should be per topic listed.**
+1. **Generating Output** - I know how to generate an output in VSCode, but I struggle when it comes to displaying outputs in a browser’s console, alert dialog boxes, or directly on a webpage. This usually happens because I copy Sir’s code too slowly, and by the time I am done, he is already finished teaching the method. I need more practice in this area so I can keep up and learn how outputs work outside of VSCode.
+2. **Do While Loops** - I find do while loops confusing even though they are similar to while loops. Sometimes, my code does not give the output I expect, and I think the problem lies in how I write the condition. With more practice, I will be able to identify my mistakes and use do while loops more confidently.
+3. **For In Loops** - I do not fully understand when a for in loop only outputs the keys and when it outputs both keys and values. Because of this, I feel unsure when writing them since I do not know how to make them display exactly what I want. I need more explanation and practice to improve my confidence in using for in loops.
+4. **Declaring Functions** - I find it difficult to predict exactly what a function will return, especially when it has a specific return statement. I also get confused about when and how functions can be called in a program. With more study, I can strengthen my understanding of functions and their outputs.
+5. **Event Handlers** - I do not fully understand what event handlers do or how they affect a webpage. For example, the statement p onclick="alert('So I click you, now what?')">Click Me.</p confuses me, and I am unsure about what actually happens when I click the element. Because of this confusion, I avoid using event handlers and need more practice to learn how they work properly.
+
+### **Describe on what will be your plan of action in order to help yourself in understanding further the topics listed on the second items.**
+1. **Schedule a Consult with Sir** - A simple explanation from Sir Roy can help me quickly understand concepts that seem confusing at first. By asking questions directly, I will also gain additional knowledge and clarifications about the topics. This will make it easier for me to apply the lessons in coding exercises.
+2. **Study More** - I will review each lesson carefully and take time to read through my notes again. Doing more practice exercises will help me strengthen my understanding and identify where I usually make mistakes. Through consistent practice, I will improve my confidence in coding.
+
+### **In the activities that were done in class, list at least two that you think were effective and at least two that you think not effective in helping you understand topics in our course and why?**
+*Effective:*
+1. Listening to Sir explain his code while I copy it on my computer is very effective. It allows me to see how the logic works while practicing it myself at the same time. This method helps me understand faster because I learn both by listening and by doing.
+2. Asking Sir and my classmates about specific parts of code I do not understand is also effective. Getting immediate answers clears my confusion right away and prevents me from memorizing mistakes. Collaboration makes the lessons more interactive and engaging.
+
+*Not Effective:*
+1. Zoning out during class is not effective because I miss important parts of the lesson. Once I lose focus, it is very difficult to catch up with the discussion. This makes me fall behind in understanding new topics.
+2. Not listening carefully is also ineffective because I miss key explanations that would have helped me understand the lessons. When I don’t listen, I end up guessing instead of knowing the correct process. Staying attentive is necessary to keep up with the pace of the class.
