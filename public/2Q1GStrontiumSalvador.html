@@ -1,180 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Day's Vibe</title>
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/833/833472.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
     <style>
-      body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to bottom right, #ffd6ec, #ffe6f9);
-        color: #ff5c8d;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-      }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFF8C9;
+            color: #5A4B43;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
 
-      header {
-        background-color: #ffb6d9;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);
-      }
+        header {
+            background-color: #F4C2C2; 
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(244, 194, 194, 0.6);
+        }
 
-      h1 {
-        font-size: 2.2em;
-        color: white;
-        margin: 0;
-      }
+        h1 {
+            color: #5A4B43;
+            margin: 0;
+            font-size: 2.2em;
+        }
 
-      h2 {
-        color: #ff4081;
-        margin-top: 20px;
-      }
+        h2 {
+            color: #C85A54;
+            margin-top: 20px;
+        }
 
-      nav {
-        margin-top: 10px;
-      }
+        nav {
+            margin-top: 10px;
+        }
 
-      nav a {
-        text-decoration: none;
-        color: white;
-        margin: 0 15px;
-        font-weight: 600;
-        transition: color 0.3s;
-      }
+        nav a {
+            text-decoration: none;
+            color: #5A4B43;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
 
-      nav a:hover {
-        color: #ffe1ef;
-      }
+        nav a:hover {
+            color: white;
+            background-color: #F3E779;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
 
-      main {
-        padding: 30px;
-      }
+        main {
+            padding: 30px;
+        }
 
-      p {
-        font-size: 1.1em;
-        margin-bottom: 20px;
-      }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
 
-      /* container for video + image */
-      .media-container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 30px;
-        flex-wrap: wrap;
-        margin-bottom: 25px;
-      }
+        .media-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
 
-      iframe, img {
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);
-      }
+        iframe, img {
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(244, 194, 194, 0.4);
+        }
 
-      img {
-        width: 420px;
-        max-width: 90%;
-      }
+        img {
+            width: 420px;
+            max-width: 90%;
+        }
 
-      figure {
-        margin: 0;
-        text-align: center;
-      }
+        figure {
+            margin: 0;
+            text-align: center;
+        }
 
-      figcaption {
-        font-size: 0.95em;
-        color: #ff4081;
-        margin-top: 8px;
-        font-style: italic;
-      }
+        figcaption {
+            font-size: 0.95em;
+            color: #A14E4E;
+            margin-top: 8px;
+            font-style: italic;
+        }
 
-      table {
-        margin: 25px auto;
-        border-collapse: collapse;
-        width: 80%;
-        background-color: #fff0f7;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
-      }
+        table {
+            margin: 25px auto;
+            border-collapse: collapse;
+            width: 80%;
+            background-color: #FDEDEF;
+            border: 2px solid #F4C2C2;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(244, 194, 194, 0.4);
+        }
 
-      th, td {
-        padding: 15px;
-        border-bottom: 1px solid #ffcce0;
-      }
+        th, td {
+            padding: 15px;
+            border: 1px solid #F4C2C2;
+            text-align: center;
+        }
 
-      tr:first-child td {
-        font-weight: 600;
-        background-color: #ffb6d9;
-        color: white;
-      }
+        th {
+            background-color: #F4C2C2;
+            color: #5A4B43;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
 
-      tr:hover {
-        background-color: #ffe1ef;
-      }
+        tr:nth-child(even) {
+            background-color: #FFF5F5;
+        }
 
-      /* friends section */
-      .friends {
-        background-color: #fff0f7;
-        padding: 30px;
-        margin-top: 40px;
-        border-top: 3px solid #ffb6d9;
-        box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
-      }
+        tr:hover {
+            background-color: #FFE6E6;
+        }
 
-      .friends a {
-        display: inline-block;
-        margin: 10px 15px;
-        padding: 10px 20px;
-        background-color: #ffb6d9;
-        color: white;
-        border-radius: 25px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: background 0.3s;
-      }
+        td strong {
+            color: #A14E4E;
+        }
 
-      .friends a:hover {
-        background-color: #ff80b5;
-      }
+        .friends {
+            background-color: #FFF8C9;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 3px solid #F4C2C2;
+            box-shadow: 0 4px 12px rgba(243, 231, 121, 0.4);
+        }
 
-      footer {
-        background-color: #ffb6d9;
-        color: white;
-        padding: 20px;
-        margin-top: 30px;
-      }
+        .friends a {
+            display: inline-block;
+            margin: 10px 15px;
+            padding: 10px 20px;
+            background-color: #F3E779;
+            color: #5A4B43;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
 
-      footer a {
-        color: white;
-        text-decoration: underline;
-      }
+        .friends a:hover {
+            background-color: #F4C2C2;
+            color: white;
+        }
+
+        footer {
+            background-color: #F4C2C2;
+            color: #5A4B43;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: #5A4B43;
+            text-decoration: underline;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <header>
-      <h1>💖 My Day's Vibe 💖</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="#schedule">Schedule</a>
-        <a href="#friends">Friends</a>
-      </nav>
+        <h1>My Day's Vibe</h1>
+        <nav>
+            <a href="#schedule">Schedule</a>
+            <a href="#friends">Friends</a>
+        </nav>
     </header>
 
     <main>
-      <h2>✨ A Happy Schedule for Today ✨</h2>
-      <p>Here is my schedule for the day! I chose this video because I really relate to this song and this photo because this is the picture we took.</p>
-
+        <h2>✨ A Happy Schedule for Today ✨</h2>
+        <p>Here is my schedule for the day! I chose this video because I really relate to this song and this photo because this is the picture we took.</p>
 
       <div class="media-container">
-        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/_AAHPGhGl4o?si=jjBdHKjAoAIEMmfL" 
-          title="YouTube video player" frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/GCGz8FL9SJc?si=FEOAWIi72VQmNmo9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
         <figure>
           <img src="https://scontent.fmnl17-1.fna.fbcdn.net/v/t1.15752-9/557177235_1146415440776425_7071672602470209327_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHb-qsdI5RiuGlAp3SScNUqKv3cndFO4Uwq_dyd0U7hTDUbfanthqBOvcNF9Zon-RuDwBuLN5f96SxIPisu2rUz&_nc_ohc=ogqNLuPvGX4Q7kNvwHKsXU8&_nc_oc=AdmrG0OH5aGXk-vanpJe0A_0oNawNF-0--9PeHYQAHq-yHMSyJ37Pds6hWFVNKjlQqs&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&oh=03_Q7cD3gHD6JOP8MrubIncdjEFa05F41fo4l6bEh--mQ6JLz-qfQ&oe=690C90B6" 
@@ -183,56 +191,57 @@
         </figure>
       </div>
 
-      <h2 id="schedule">📅 My Monday Schedule</h2>
-      <table>
-        <tr>
-          <td>Time</td>
-          <td>Activity</td>
-        </tr>
-        <tr>
-          <td>7:30 - 8:15 AM</td>
-          <td>eng with ma'am soriano!!</td>
-        </tr>
-        <tr>
-          <td>8:15 - 9:00 AM</td>
-          <td>socsci with sir glenn...</td>
-        </tr>
-        <tr>
-          <td>9:10 - 10:40 AM</td>
-          <td>physics.. with ma'am bonifacio!!</td>
-        </tr>
-        <tr>
-          <td>10:40 - 11:25 AM</td>
-          <td>spent sp with yuuna!!</td>
-        </tr>
-        <tr>
-          <td>11:25 AM - 12:10 PM</td>
-          <td>math with juan asperin...</td>
-        </tr>
-        <tr>
-          <td>12:10 - 1:05 PM</td>
-          <td>lunch with trish, schatz, and doreen (tas nakita ko crush ko sa lithium heh :p)</td>
-        </tr>
-        <tr>
-          <td>1:05 - 2:35 PM</td>
-          <td>chem lab activity !!</td>
-        </tr>
-        <tr>
-          <td>2:45 - 4:15 PM</td>
-          <td>cs with keone and crow !!</td>
-        </tr>
-      </table>
+        <h2 id="schedule">📅 My Monday Schedule</h2>
 
-      <section class="friends" id="friends">
-        <h2>💞 Visit My Friends’ Websites 💞</h2>
-        <a href="https://pyasantos.github.io/CS3_1stQtrPortfolio/public/Q2_NonGraded.html" target="_blank">Trish’s Website</a>
-        <a href="https://ceanagucyam.github.io/CS3_1stQtrPortfolio/public/2Q1GStrontiumGucyam.html" target="_blank">Ceana’s Website</a>
-        <a href="https://130reevtrbl.github.io/CS3_1stQtrPortfolio/public/chaeyoung.html" target="_blank">Reeva’s Website</a>
-      </section>
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Activity</th>
+            </tr>
+            <tr>
+                <td>7:30 - 8:15 AM</td>
+                <td><strong>English</strong> with Ma'am Soriano!!</td>
+            </tr>
+            <tr>
+                <td>8:15 - 9:00 AM</td>
+                <td><strong>Social Science</strong> with Sir Glenn...</td>
+            </tr>
+            <tr>
+                <td>9:10 - 10:40 AM</td>
+                <td><strong>Physics</strong>... with Ma'am Bonifacio!!</td>
+            </tr>
+            <tr>
+                <td>10:40 - 11:25 AM</td>
+                <td>Spent <strong>Study Period</strong> with Yuuna!!</td>
+            </tr>
+            <tr>
+                <td>11:25 AM - 12:10 PM</td>
+                <td><strong>Math</strong> with Juan Asperin...</td>
+            </tr>
+            <tr>
+                <td>12:10 - 1:05 PM</td>
+                <td><strong>Lunch</strong> with Trish, Schatz, and Doreen (tas nakita ko crush ko sa Lithium heh :p)</td>
+            </tr>
+            <tr>
+                <td>1:05 - 2:35 PM</td>
+                <td><strong>Chemistry</strong> Lab Activity!!</td>
+            </tr>
+            <tr>
+                <td>2:45 - 4:15 PM</td>
+                <td><strong>Computer Science</strong> with Keone and Crow !!</td>
+            </tr>
+        </table>
+
+        <section class="friends" id="friends">
+            <h2>💞 Visit My Friends’ Websites 💞</h2>
+            <a href="https://pyasantos.github.io/CS3_1stQtrPortfolio/public/Q2_NonGraded.html" target="_blank">Trish’s Website</a>
+            <a href="https://ceanagucyam.github.io/CS3_1stQtrPortfolio/public/2Q1GStrontiumGucyam.html" target="_blank">Ceana’s Website</a>
+            <a href="https://130reevtrbl.github.io/CS3_1stQtrPortfolio/public/chaeyoung.html" target="_blank">Reeva’s Website</a>
+        </section>
     </main>
 
     <footer>
-      <p>© 2025 Created by Ysa Salvador</p>
+        <p>© 2025 Ysa Salvador</p>
     </footer>
-  </body>
+</body>
 </html>
