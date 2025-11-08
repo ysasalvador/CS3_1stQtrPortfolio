@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Coding Lab: JavaScript Events Activity</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+      transition: background-color 0.4s;
+    }
+    header {
+      background-color: #343a40;
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px;
+    }
+    header button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    header button:hover {
+      color: #ffc107;
+    }
+    section {
+      display: none;
+      padding: 30px;
+      text-align: center;
+    }
+    section.active {
+      display: block;
+    }
+    #box {
+      width: 100px;
+      height: 100px;
+      background: red;
+      margin: 50px auto;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+    #rotateBox {
+      width: 120px;
+      height: 120px;
+      background: purple;
+      margin: 40px auto;
+      transition: transform 0.5s;
+    }
+    #reaction-output {
+      font-size: 20px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button onclick="showTask('task1')">Task 1</button>
+    <button onclick="showTask('task2')">Task 2</button>
+    <button onclick="showTask('task3')">Task 3</button>
+    <button onclick="showTask('task4')">Task 4</button>
+    <button onclick="showTask('task5')">Task 5</button>
+    <button onclick="showTask('wrapup')">Wrap-Up</button>
+  </header>
+
+  <section id="task1" class="active">
+    <h2>🧩 Task 1 — Click to Change Color</h2>
+    <p>Click anywhere!</p>
+    <script>
+      document.body.onclick = function changeColor() {
+        const randomColor =
+          "hsl(" + Math.random() * 360 + ", 70%, 70%)";
+        document.body.style.backgroundColor = randomColor;
+      };
+    </script>
+    <p><b>Reflection:</b> The onclick event listener responds to user clicks.</p>
+  </section>
+
+  <section id="task2">
+    <h2>🧩 Task 2 — Hover to Zoom</h2>
+    <div id="box"></div>
+    <p><b>Reflection:</b> mouseover triggers when the mouse enters, while mouseout triggers when it leaves.</p>
+  </section>
+
+  <section id="task3">
+    <h2>🧩 Task 3 — Keypress Reaction</h2>
+    <p>Press any key. Refresh page to reset.</p>
+    <h3 id="pressedKey"></h3>
+    <p><b>Reflection:</b> The browser uses the event.key property to detect which key was pressed.</p>
+  </section>
+
+  <section id="task4">
+    <h2>🧩 Task 4 — Build Your Own Event Responder</h2>
+    <button id="myButton">Click me!</button>
+    <div id="rotateBox"></div>
+    <p id="keyMessage"></p>
+    <p><b>Reflection:</b> Click was easiest, keypress was trickiest.</p>
+  </section>
+
+  <section id="task5">
+    <h2>🧩 Task 5 — Reaction Game</h2>
+    <h3 id="randomLetter"></h3>
+    <p id="reaction-output"></p>
+    <p><b>Score:</b> <span id="score">0</span></p>
+    <p><b>Time left:</b> <span id="timer">10</span> seconds</p>
+    <button onclick="startGame()">Start Game</button>
+    <button onclick="newLetter()">New Letter</button>
+  </section>
+
+  <section id="wrapup">
+    <h2>🧠 Wrap-Up Discussion</h2>
+    <p><b>What is an event?</b> An event is an action or occurrence (like a click or keypress) that a webpage can respond to.</p>
+    <p><b>Why do websites need event listeners?</b> They let websites interact with users dynamically, making them more engaging.</p>
+    <p><b>How could you use events to make a quiz, a game, or a drawing app?</b> You can use events to make a quiz, game, or drawing app by detecting user actions like clicks, key presses, or mouse movements to trigger interactive responses and updates on the screen.</p>
+  </section>
+
+  <script>
+    function showTask(id) {
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    const box = document.getElementById("box");
+    box.onmouseover = function() {
+      box.style.backgroundColor = "royalblue";
+      box.style.transform = "scale(1.3)";
+    };
+    box.onmouseout = function() {
+      box.style.backgroundColor = "red";
+      box.style.transform = "scale(1)";
+    };
+
+    document.body.onkeypress = function(event) {
+      if (document.getElementById("task3").classList.contains("active")) {
+        document.body.style.backgroundColor = "hsl(" + Math.random() * 360 + ",70%,70%)";
+        document.getElementById("pressedKey").innerText = "You pressed: " + event.key;
+      }
+    };
+
+    const btn = document.getElementById("myButton");
+    const rotateBox = document.getElementById("rotateBox");
+    const keyMessage = document.getElementById("keyMessage");
+
+    btn.onclick = function() {
+      btn.innerText = "You clicked me!";
+    };
+    rotateBox.onmouseover = function() {
+      rotateBox.style.transform = "rotate(45deg)";
+    };
+    rotateBox.onmouseout = function() {
+      rotateBox.style.transform = "rotate(0deg)";
+    };
+    document.body.onkeydown = function(e) {
+      if (document.getElementById("task4").classList.contains("active")) {
+        keyMessage.innerText = `You pressed "${e.key}"`;
+      }
+    };
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const randomLetter = document.getElementById("randomLetter");
+    const reactionOutput = document.getElementById("reaction-output");
+    const scoreDisplay = document.getElementById("score");
+    const timerDisplay = document.getElementById("timer");
+    let score = 0;
+    let timeLeft = 10;
+    let timer;
+    let gameActive = false;
+
+    function newLetter() {
+      const letter = letters[Math.floor(Math.random() * letters.length)];
+      randomLetter.textContent = letter;
+      reactionOutput.textContent = "";
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 10;
+      gameActive = true;
+      scoreDisplay.textContent = score;
+      timerDisplay.textContent = timeLeft;
+      newLetter();
+      clearInterval(timer);
+      timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          gameActive = false;
+          randomLetter.textContent = "";
+          reactionOutput.textContent = `⏰ Time’s up! Final score: ${score}`;
+        }
+      }, 1000);
+    }
+
+    document.body.onkeyup = function(e) {
+      if (document.getElementById("task5").classList.contains("active")) {
+        if (gameActive) {
+          if (!randomLetter.textContent) return;
+          if (e.key.toUpperCase() === randomLetter.textContent) {
+            score++;
+            reactionOutput.textContent = "✅ Correct!";
+            scoreDisplay.textContent = score;
+            newLetter();
+          } else {
+            reactionOutput.textContent = "❌ Try again!";
+          }
+        } else {
+          if (!randomLetter.textContent) return;
+          if (e.key.toUpperCase() === randomLetter.textContent) {
+            reactionOutput.textContent = "✅ Correct!";
+          } else {
+            reactionOutput.textContent = "❌ Try again!";
+          }
+        }
+      }
+    };
+
+    newLetter();
+  </script>
+</body>
+</html>
