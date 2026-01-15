@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Q3 2nd Graded Exercise - Designing an HTML form</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f8;
+        padding: 20px;
+    }
+
+    form {
+        max-width: 700px;
+        margin: auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    fieldset {
+        margin-bottom: 20px;
+        border: 1px solid #999;
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+    legend {
+        font-weight: bold;
+        padding: 0 10px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* focus pseudoclass */
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: #0066cc;
+        background-color: #eef6ff;
+    }
+
+    /* style for empty fields on blur */
+    .error {
+        border: 2px solid red;
+        background-color: #ffecec;
+    }
+
+    .buttons {
+        text-align: center;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function confirmSubmit() {
+        return confirm("Are you sure you want to submit this application?");
+    }
+
+    function confirmReset() {
+        return confirm("Are you sure you want to reset all the information?");
+    }
+
+    function checkEmpty(element) {
+        if (element.value.trim() === "") {
+            element.classList.add("error");
+        } else {
+            element.classList.remove("error");
+        }
+    }
+</script>
+</head>
+
+<body>
+
+<form method="post" action="submit" onsubmit="return confirmSubmit()" onreset="return confirmReset()">
+
+    <!-- fieldset for 1 to 4 -->
+    <fieldset>
+        <legend>Personal Information</legend>
+
+        <label>
+            Student ID
+            <input type="number" name="student_id" required onblur="checkEmpty(this)">
+        </label>
+
+        <label>
+            Full Name
+            <input type="text" name="full_name" required onblur="checkEmpty(this)">
+        </label>
+
+        <label>
+            Birthday
+            <input type="date" name="birthday" required onblur="checkEmpty(this)">
+        </label>
+
+        <label>
+            Email Address
+            <input type="email" name="email" required onblur="checkEmpty(this)">
+        </label>
+    </fieldset>
+
+    <!-- fieldset for 5 to 8 -->
+    <fieldset>
+        <legend>Application Details</legend>
+
+        <label>
+            Mobile Phone
+            <input type="text" name="mobile" required onblur="checkEmpty(this)">
+        </label>
+
+        <label>
+            Grade Level
+            <select name="grade_level" required onblur="checkEmpty(this)">
+                <option value="">-- Select Grade --</option>
+                <option value="g7">Grade 7</option>
+                <option value="g8">Grade 8</option>
+                <option value="g9">Grade 9</option>
+                <option value="g10">Grade 10</option>
+                <option value="g11">Grade 11</option>
+                <option value="g12">Grade 12</option>
+            </select>
+        </label>
+
+        <label>
+            Intern / Extern
+            <br>
+            <input type="radio" name="status" value="internal" required> Intern
+            <input type="radio" name="status" value="external" required> Extern
+        </label>
+
+        <label>
+            Preferred Organization / Club
+            <select name="club" required onblur="checkEmpty(this)">
+                <option value="">-- Choose a Club --</option>
+                <option value="tech">Kislap</option>
+                <option value="arts">AKSIS</option>
+                <option value="sports">Chess Club</option>
+                <option value="science">Bake Club</option>
+                <option value="music">Computron</option>
+            </select>
+        </label>
+
+        <label>
+            Why do you want to join?
+            <textarea name="reason" rows="4" required onblur="checkEmpty(this)"></textarea>
+        </label>
+    </fieldset>
+
+    <div class="buttons">
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+    </div>
+
+</form>
+
+</body>
+</html>
