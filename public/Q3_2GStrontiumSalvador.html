@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Q3 2nd Graded Exercise - Sign Up</title>
+<title>Q3 2nd Graded Exercise - Designing an HTML Form</title>
 
 <style>
     body {
@@ -29,6 +29,7 @@
 
     legend {
         font-weight: bold;
+        padding: 0 10px;
     }
 
     label {
@@ -40,8 +41,19 @@
         width: 100%;
         padding: 8px;
         margin-top: 5px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        box-sizing: border-box;
     }
 
+    /* focus pseudoclass */
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: #0066cc;
+        background-color: #eef6ff;
+    }
+
+    /* style for empty fields on blur */
     .error {
         border: 2px solid red;
         background-color: #ffecec;
@@ -54,15 +66,12 @@
     button {
         padding: 10px 20px;
         margin: 10px;
+        font-size: 16px;
         cursor: pointer;
     }
 </style>
 
 <script>
-/*
-    This function confirms submission, reads all form values,
-    saves them to localStorage, and grows existing data if present.
-*/
 function handleSubmit(event) {
     event.preventDefault(); // prevents page reload
 
@@ -70,7 +79,6 @@ function handleSubmit(event) {
         return;
     }
 
-    // Create a signup object from form data
     const signup = {
         studentId: document.querySelector("[name='student_id']").value,
         fullName: document.querySelector("[name='full_name']").value,
@@ -83,13 +91,11 @@ function handleSubmit(event) {
         reason: document.querySelector("[name='reason']").value
     };
 
-    // Read existing signups or initialize empty array
     let signups = JSON.parse(localStorage.getItem("signups"));
     if (!signups) {
         signups = [];
     }
 
-    // Add new signup and save back to localStorage
     signups.push(signup);
     localStorage.setItem("signups", JSON.stringify(signups));
 
@@ -110,7 +116,7 @@ function checkEmpty(element) {
 <body>
 
 <form method="post" onsubmit="handleSubmit(event)" onreset="return confirmReset()">
-
+<!-- fieldset for 1 to 4 -->
 <fieldset>
     <legend>Personal Information</legend>
 
@@ -130,7 +136,7 @@ function checkEmpty(element) {
         <input type="email" name="email" required onblur="checkEmpty(this)">
     </label>
 </fieldset>
-
+<!-- fieldset for 5 to 8 -->
 <fieldset>
     <legend>Application Details</legend>
 
