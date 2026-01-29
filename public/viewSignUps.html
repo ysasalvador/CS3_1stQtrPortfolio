@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>View Sign-Ups</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #eef2f5;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    select {
+        padding: 8px;
+        margin-bottom: 15px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+    }
+
+    th, td {
+        border: 1px solid #999;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #ddd;
+    }
+
+    .message {
+        margin: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .back {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<script>
+function loadSignups() {
+    const signups = JSON.parse(localStorage.getItem("signups"));
+    const selectedClub = document.getElementById("clubFilter").value;
+    const tableBody = document.getElementById("tableBody");
+    const totalDisplay = document.getElementById("total");
+    const message = document.getElementById("message");
+
+    tableBody.innerHTML = "";
+    message.textContent = "";
+
+    if (!signups || signups.length === 0) {
+        message.textContent = "No sign-ups saved yet.";
+        totalDisplay.textContent = "0";
+        return;
+    }
+
+    const filtered = selectedClub === "ALL"
+        ? signups
+        : signups.filter(s => s.club === selectedClub);
+
+    if (filtered.length === 0) {
+        message.textContent = "No sign-ups for the selected club.";
+    }
+
+    filtered.forEach(s => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+            <td>${s.studentId}</td>
+            <td>${s.fullName}</td>
+            <td>${s.grade}</td>
+            <td>${s.status}</td>
+            <td>${s.club}</td>
+        `;
+    });
+
+    totalDisplay.textContent = filtered.length;
+}
+
+window.onload = loadSignups;
+</script>
+</head>
+
+<body>
+
+<h2>Student Club Sign-Ups</h2>
+
+<label>Filter by Club:
+    <select id="clubFilter" onchange="loadSignups()">
+        <option value="ALL">ALL</option>
+        <option value="Kislap">Kislap</option>
+        <option value="AKSIS">AKSIS</option>
+        <option value="Chess Club">Chess Club</option>
+        <option value="Bake Club">Bake Club</option>
+        <option value="Computron">Computron</option>
+    </select>
+</label>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>Status</th>
+            <th>Club</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+
+<p class="message" id="message"></p>
+<p>Total Sign-Ups: <strong id="total">0</strong></p>
+
+<div class="back">
+    <a href="index.html">⬅ Back to Sign-Up Page</a>
+</div>
+
+</body>
+</html>

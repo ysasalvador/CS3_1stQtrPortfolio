@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Q3 2nd Graded Exercise - Designing an HTML form</title>
+<title>Q3 2nd Graded Exercise - Sign Up</title>
 
 <style>
     body {
@@ -29,7 +29,6 @@
 
     legend {
         font-weight: bold;
-        padding: 0 10px;
     }
 
     label {
@@ -41,19 +40,8 @@
         width: 100%;
         padding: 8px;
         margin-top: 5px;
-        border: 1px solid #999;
-        border-radius: 4px;
-        box-sizing: border-box;
     }
 
-    /* focus pseudoclass */
-    input:focus, select:focus, textarea:focus {
-        outline: none;
-        border-color: #0066cc;
-        background-color: #eef6ff;
-    }
-
-    /* style for empty fields on blur */
     .error {
         border: 2px solid red;
         background-color: #ffecec;
@@ -66,112 +54,130 @@
     button {
         padding: 10px 20px;
         margin: 10px;
-        font-size: 16px;
         cursor: pointer;
     }
 </style>
 
 <script>
-    function confirmSubmit() {
-        return confirm("Are you sure you want to submit this application?");
+/*
+    This function confirms submission, reads all form values,
+    saves them to localStorage, and grows existing data if present.
+*/
+function handleSubmit(event) {
+    event.preventDefault(); // prevents page reload
+
+    if (!confirm("Are you sure you want to submit this application?")) {
+        return;
     }
 
-    function confirmReset() {
-        return confirm("Are you sure you want to reset all the information?");
+    // Create a signup object from form data
+    const signup = {
+        studentId: document.querySelector("[name='student_id']").value,
+        fullName: document.querySelector("[name='full_name']").value,
+        birthday: document.querySelector("[name='birthday']").value,
+        email: document.querySelector("[name='email']").value,
+        mobile: document.querySelector("[name='mobile']").value,
+        grade: document.querySelector("[name='grade_level']").value,
+        status: document.querySelector("[name='status']:checked").value,
+        club: document.querySelector("[name='club']").value,
+        reason: document.querySelector("[name='reason']").value
+    };
+
+    // Read existing signups or initialize empty array
+    let signups = JSON.parse(localStorage.getItem("signups"));
+    if (!signups) {
+        signups = [];
     }
 
-    function checkEmpty(element) {
-        if (element.value.trim() === "") {
-            element.classList.add("error");
-        } else {
-            element.classList.remove("error");
-        }
-    }
+    // Add new signup and save back to localStorage
+    signups.push(signup);
+    localStorage.setItem("signups", JSON.stringify(signups));
+
+    alert("Signup successfully saved!");
+    document.querySelector("form").reset();
+}
+
+function confirmReset() {
+    return confirm("Are you sure you want to reset all the information?");
+}
+
+function checkEmpty(element) {
+    element.classList.toggle("error", element.value.trim() === "");
+}
 </script>
 </head>
 
 <body>
 
-<form method="post" action="submit" onsubmit="return confirmSubmit()" onreset="return confirmReset()">
+<form method="post" onsubmit="handleSubmit(event)" onreset="return confirmReset()">
 
-    <!-- fieldset for 1 to 4 -->
-    <fieldset>
-        <legend>Personal Information</legend>
+<fieldset>
+    <legend>Personal Information</legend>
 
-        <label>
-            Student ID
-            <input type="number" name="student_id" required onblur="checkEmpty(this)">
-        </label>
+    <label>Student ID
+        <input type="number" name="student_id" required onblur="checkEmpty(this)">
+    </label>
 
-        <label>
-            Full Name
-            <input type="text" name="full_name" required onblur="checkEmpty(this)">
-        </label>
+    <label>Full Name
+        <input type="text" name="full_name" required onblur="checkEmpty(this)">
+    </label>
 
-        <label>
-            Birthday
-            <input type="date" name="birthday" required onblur="checkEmpty(this)">
-        </label>
+    <label>Birthday
+        <input type="date" name="birthday" required onblur="checkEmpty(this)">
+    </label>
 
-        <label>
-            Email Address
-            <input type="email" name="email" required onblur="checkEmpty(this)">
-        </label>
-    </fieldset>
+    <label>Email Address
+        <input type="email" name="email" required onblur="checkEmpty(this)">
+    </label>
+</fieldset>
 
-    <!-- fieldset for 5 to 8 -->
-    <fieldset>
-        <legend>Application Details</legend>
+<fieldset>
+    <legend>Application Details</legend>
 
-        <label>
-            Mobile Phone
-            <input type="text" name="mobile" required onblur="checkEmpty(this)">
-        </label>
+    <label>Mobile Phone
+        <input type="text" name="mobile" required onblur="checkEmpty(this)">
+    </label>
 
-        <label>
-            Grade Level
-            <select name="grade_level" required onblur="checkEmpty(this)">
-                <option value="">-- Select Grade --</option>
-                <option value="g7">Grade 7</option>
-                <option value="g8">Grade 8</option>
-                <option value="g9">Grade 9</option>
-                <option value="g10">Grade 10</option>
-                <option value="g11">Grade 11</option>
-                <option value="g12">Grade 12</option>
-            </select>
-        </label>
+    <label>Grade Level
+        <select name="grade_level" required onblur="checkEmpty(this)">
+            <option value="">-- Select Grade --</option>
+            <option value="Grade 7">Grade 7</option>
+            <option value="Grade 8">Grade 8</option>
+            <option value="Grade 9">Grade 9</option>
+            <option value="Grade 10">Grade 10</option>
+            <option value="Grade 11">Grade 11</option>
+            <option value="Grade 12">Grade 12</option>
+        </select>
+    </label>
 
-        <label>
-            Intern / Extern
-            <br>
-            <input type="radio" name="status" value="internal" required> Intern
-            <input type="radio" name="status" value="external" required> Extern
-        </label>
+    <label>
+        Intern / Extern<br>
+        <input type="radio" name="status" value="Intern" required> Intern
+        <input type="radio" name="status" value="Extern" required> Extern
+    </label>
 
-        <label>
-            Preferred Organization / Club
-            <select name="club" required onblur="checkEmpty(this)">
-                <option value="">-- Choose a Club --</option>
-                <option value="tech">Kislap</option>
-                <option value="arts">AKSIS</option>
-                <option value="sports">Chess Club</option>
-                <option value="science">Bake Club</option>
-                <option value="music">Computron</option>
-            </select>
-        </label>
+    <label>Preferred Organization / Club
+        <select name="club" required onblur="checkEmpty(this)">
+            <option value="">-- Choose a Club --</option>
+            <option value="Kislap">Kislap</option>
+            <option value="AKSIS">AKSIS</option>
+            <option value="Chess Club">Chess Club</option>
+            <option value="Bake Club">Bake Club</option>
+            <option value="Computron">Computron</option>
+        </select>
+    </label>
 
-        <label>
-            Why do you want to join?
-            <textarea name="reason" rows="4" required onblur="checkEmpty(this)"></textarea>
-        </label>
-    </fieldset>
+    <label>Why do you want to join?
+        <textarea name="reason" rows="4" required onblur="checkEmpty(this)"></textarea>
+    </label>
+</fieldset>
 
-    <div class="buttons">
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
-    </div>
+<div class="buttons">
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+    <button type="button" onclick="location.href='viewSignUps.html'">View Signups</button>
+</div>
 
 </form>
-
 </body>
 </html>

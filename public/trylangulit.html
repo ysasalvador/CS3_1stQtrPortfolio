@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZB1 Zone - Quiz</title>
+    <style>
+        /* CSS STYLES */
+        :root {
+            --color-primary: #1e88e5;
+            --color-secondary: #ffffff;
+            --color-text-light: #f0f3f6;
+            --color-text-dark: #2c3e50;
+            --color-background-start: #b3e5fc;
+            --color-background-end: #3949ab;
+            --color-box-bg: rgba(255, 255, 255, 0.4);
+            --color-active-bg: rgba(255, 255, 255, 0.8);
+            --color-dark-box: rgba(45, 85, 120, 0.7);
+            --color-dark-text: #e0f7fa;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            background: linear-gradient(180deg, var(--color-background-start) 0%, #a6d8f1 30%, #5892b1 70%, var(--color-background-end) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--color-text-light);
+            padding: 20px;
+        }
+
+        .quiz-container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .quiz-intro-box, .result-box {
+            background-color: var(--color-dark-box);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            color: var(--color-dark-text);
+        }
+
+        .action-button {
+            background: linear-gradient(90deg, #64b5f6, #42a5f5);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+        }
+
+        .action-button:hover { transform: scale(1.05); background: #1e88e5; }
+
+        .hidden { display: none !important; }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .answer-option {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: var(--color-box-bg);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+            color: var(--color-text-dark);
+            font-weight: 500;
+        }
+
+        .answer-option.selected { background: var(--color-active-bg); border-color: var(--color-primary); }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--color-primary);
+            width: 0%;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        #top-right-logo { position: absolute; top: 20px; right: 20px; width: 100px; }
+    </style>
+</head>
+<body>
+
+    <img id="top-right-logo" src="https://cdn.discordapp.com/attachments/1270327529164505246/1449676049951494154/image-removebg-preview_2.png" alt="ZB1 Logo">
+
+    <main class="quiz-container">
+        <h1>Quiz: Find Your ZB1 Match</h1>
+
+        <section id="intro-screen">
+            <p style="margin-bottom: 20px;">Get to know who you're most similar to in ZB1!</p>
+            <div class="quiz-intro-box">
+                <p>You are about to tackle 10 quick questions that secretly hold the key to a ZB1 member's personality! Simply select the choice that best matches your vibe.</p>
+            </div>
+            <button id="start-btn" class="action-button">Start the Quiz!</button>
+        </section>
+
+        <section id="registration-screen" class="hidden">
+            <h2>Registration</h2>
+            <div class="quiz-intro-box">
+                <form id="registration-form">
+                    <label>Name</label>
+                    <input type="text" id="user-name" placeholder="Enter your name" required>
+                    
+                    <label>ZEROSE Level</label>
+                    <select id="zerose-level" required>
+                        <option value="New Fan">New Fan</option>
+                        <option value="Dedicated ZEROSE">Dedicated ZEROSE</option>
+                        <option value="Ultimate Bias">Ultimate Bias</option>
+                    </select>
+                    <button type="submit" class="action-button" style="width: 100%;">Enter Quiz</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="question-screen" class="hidden">
+            <p id="quiz-question" style="font-size: 1.2em; margin-bottom: 20px; font-weight: bold;"></p>
+            <div id="answers-container"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </section>
+
+        <section id="result-screen" class="hidden">
+            <h2 id="result-heading"></h2>
+            <div class="result-box">
+                <p id="result-text"></p>
+            </div>
+            <button id="restart-btn" class="action-button">Play Again</button>
+            <button id="membership-btn" class="action-button">Membership Card</button>
+        </section>
+
+        <section id="membership-screen" class="hidden">
+            <h2>ZEROSE Membership Card</h2>
+            <div class="result-box" id="card-content"></div>
+            <button id="back-home-btn" class="action-button">Back</button>
+        </section>
+    </main>
+
+    <script>
+        // JAVASCRIPT LOGIC
+        const quizData = [
+            { question: "Which color palette speaks to you?", options: [{text:"Grayish Blue", m:"Jiwoong"}, {text:"Red/Burgundy", m:"Zhang Hao"}, {text:"Light Blue", m:"Sung Han-bin"}] },
+            { question: "Describe your vibe.", options: [{text:"Calm", m:"Jiwoong"}, {text:"Sincere", m:"Zhang Hao"}, {text:"Giggling", m:"Sung Han-bin"}] }
+            // ... (You can add all 10 questions here following this format)
+        ];
+
+        let currentIdx = 0;
+        let scores = {};
+        let userAnswers = [];
+
+        // DOM Elements
+        const screens = ['intro-screen', 'registration-screen', 'question-screen', 'result-screen', 'membership-screen'];
+        const showScreen = (id) => screens.forEach(s => document.getElementById(s).classList.toggle('hidden', s !== id));
+
+        // Start Button -> Registration
+        document.getElementById('start-btn').addEventListener('click', () => {
+            if (localStorage.getItem('zb1_user')) {
+                startQuiz(); // If logged in, skip registration
+            } else {
+                showScreen('registration-screen');
+            }
+        });
+
+        // Registration -> Quiz
+        document.getElementById('registration-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = { 
+                name: document.getElementById('user-name').value, 
+                level: document.getElementById('zerose-level').value 
+            };
+            localStorage.setItem('zb1_user', JSON.stringify(data));
+            startQuiz();
+        });
+
+        function startQuiz() {
+            currentIdx = 0;
+            scores = {};
+            showScreen('question-screen');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = quizData[currentIdx];
+            document.getElementById('quiz-question').textContent = q.question;
+            const container = document.getElementById('answers-container');
+            container.innerHTML = '';
+            
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-option';
+                btn.textContent = opt.text;
+                btn.onclick = () => {
+                    scores[opt.m] = (scores[opt.m] || 0) + 1;
+                    if (currentIdx < quizData.length - 1) {
+                        currentIdx++;
+                        loadQuestion();
+                    } else {
+                        showResults();
+                    }
+                    updateProgress();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function updateProgress() {
+            document.getElementById('progress-bar').style.width = ((currentIdx + 1) / quizData.length * 100) + '%';
+        }
+
+        function showResults() {
+            const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+            localStorage.setItem('last_match', winner);
+            document.getElementById('result-heading').textContent = `You are ${winner}!`;
+            document.getElementById('result-text').textContent = `Based on your vibe, you match perfectly with ${winner}.`;
+            showScreen('result-screen');
+        }
+
+        // Play Again -> Returns to Intro (Homepage)
+        document.getElementById('restart-btn').addEventListener('click', () => showScreen('intro-screen'));
+        document.getElementById('back-home-btn').addEventListener('click', () => showScreen('intro-screen'));
+
+        // Membership Card
+        document.getElementById('membership-btn').addEventListener('click', () => {
+            const user = JSON.parse(localStorage.getItem('zb1_user'));
+            const match = localStorage.getItem('last_match');
+            document.getElementById('card-content').innerHTML = `
+                <p><strong>Member Name:</strong> ${user.name}</p>
+                <p><strong>ZEROSE Level:</strong> ${user.level}</p>
+                <p><strong>Official Match:</strong> ${match}</p>
+            `;
+            showScreen('membership-screen');
+        });
+    </script>
+</body>
+</html>
