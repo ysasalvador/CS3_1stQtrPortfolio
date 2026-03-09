@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Q4 1st Graded - Movie Rating</title>
+
+<style>
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#ffd6e7,#ffeaf3);
+    display:flex;
+    justify-content:center;
+    padding:40px;
+}
+
+
+.container{
+    background:white;
+    width:500px;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1,h2{
+    text-align:center;
+    color:#e75480;
+}
+
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:15px;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+button{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#ff69b4;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#ff4fa3;
+}
+
+.stars{
+    font-size:28px;
+    margin-top:5px;
+    cursor:pointer;
+}
+
+.star{
+    color:#ccc;
+}
+
+.star.selected{
+    color:gold;
+}
+
+.movie-item{
+    background:#fff0f6;
+    border:1px solid #ffd1e6;
+    padding:10px;
+    margin-top:10px;
+    border-radius:8px;
+}
+
+.rating-stars{
+    color:gold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Add a Movie</h1>
+
+<label>Title:</label>
+<input type="text" id="title">
+
+<label>Year:</label>
+<input type="number" id="year">
+
+<label>Genre:</label>
+<select id="genre">
+<option>Romance</option>
+<option>Comedy</option>
+<option>Drama</option>
+<option>Horror</option>
+<option>Fantasy</option>
+</select>
+
+<label>Rating:</label>
+<div class="stars" id="starContainer">
+<span class="star" data-value="1">★</span>
+<span class="star" data-value="2">★</span>
+<span class="star" data-value="3">★</span>
+<span class="star" data-value="4">★</span>
+<span class="star" data-value="5">★</span>
+</div>
+
+<button onclick="addMovie()">Add Movie</button>
+
+<h2>Movie List</h2>
+<div id="movieList"></div>
+
+</div>
+
+<script>
+
+let selectedRating = 0;
+const stars = document.querySelectorAll(".star");
+
+/* STAR RATING CLICK FUNCTION */
+
+stars.forEach(star => {
+
+    star.addEventListener("click", function(){
+
+        selectedRating = this.dataset.value;
+
+        stars.forEach(s => s.classList.remove("selected"));
+
+        for(let i=0; i < selectedRating; i++){
+            stars[i].classList.add("selected");
+        }
+
+    });
+
+});
+
+
+/* ADD MOVIE FUNCTION */
+
+function addMovie(){
+
+    const title = document.getElementById("title").value;
+    const year = document.getElementById("year").value;
+    const genre = document.getElementById("genre").value;
+
+    if(title === "" || year === "" || selectedRating === 0){
+        alert("Please fill all fields and select rating.");
+        return;
+    }
+
+    /* create movie bbject */
+    const movie = {
+        title: title,
+        year: year,
+        genre: genre,
+        rating: selectedRating
+    };
+
+    /* get existing movies from localstorage */
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+    /* add new movie */
+    movies.push(movie);
+
+    /* save back to localstorage */
+    localStorage.setItem("movies", JSON.stringify(movies));
+
+    /* refresh movie list */
+    displayMovies();
+
+    /* reset form */
+    document.getElementById("title").value="";
+    document.getElementById("year").value="";
+    selectedRating = 0;
+    stars.forEach(s => s.classList.remove("selected"));
+
+}
+
+
+/* DISPLAY MOVIES */
+
+function displayMovies(){
+
+    const movieList = document.getElementById("movieList");
+
+    movieList.innerHTML = "";
+
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+    movies.forEach(movie => {
+
+        const movieDiv = document.createElement("div");
+        movieDiv.className = "movie-item";
+
+        /* create star rating display */
+        let starsHTML = "";
+        for(let i=0;i<movie.rating;i++){
+            starsHTML += "★";
+        }
+
+        movieDiv.innerHTML =
+        `${movie.title} (${movie.year}) - ${movie.genre}, Rating: <span class="rating-stars">${starsHTML}</span>`;
+
+        movieList.appendChild(movieDiv);
+
+    });
+
+}
+
+/* LOAD MOVIES WHEN PAGE OPENS */
+
+displayMovies();
+
+</script>
+</body>
+</html>
